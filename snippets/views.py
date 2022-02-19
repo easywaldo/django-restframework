@@ -2,6 +2,7 @@ from urllib import response
 from django.shortcuts import render
 
 from django.http import HttpResponse, JsonResponse
+from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from snippets.models import Snippet
@@ -22,6 +23,8 @@ from snippets.serializers import UserSerializer
 
 from rest_framework import permissions
 
+from rest_framework import renderers
+from rest_framework.reverse import reverse
 
 # Create your views here.
 # @csrf_exempt
@@ -177,3 +180,18 @@ class UserList(generics.ListAPIView):
 class UserDetail(generics.RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+@api_view(['GET'])
+def api_root(request, format=None):
+    return Response({
+        'users': reverse('user-list', request=request, format=format),
+        'snippets': reverse('snippet-list', request=request, format=format)
+    })
+
+class SnippetHighlight(generics.GenericAPIView):
+    queryset = Snippet.objects.all()
+    renderer_classes = [renderers.StaticHTMLRenderer]
+
+    def get(self, request, *args, **kwargs):
+        snippet = self.get_object()
+        return Response(snippet.highlighted)
