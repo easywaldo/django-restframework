@@ -16,7 +16,7 @@ Including another URLconf
 from django.urls import path, include, re_path
 
 from rest_framework import permissions
-from django.conf.urls import url
+#from django.conf.urls import url
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from rest_framework.urlpatterns import format_suffix_patterns
