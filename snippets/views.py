@@ -22,6 +22,7 @@ from snippets.serializers import UserSerializer
 
 from rest_framework import permissions
 
+
 # Create your views here.
 # @csrf_exempt
 # def snippet_list(request):
