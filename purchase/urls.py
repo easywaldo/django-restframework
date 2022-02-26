@@ -1,7 +1,7 @@
 from django.urls import path, re_path
 from purchase import views
 from purchase.views import PurchaseList, PurchaseViewSet
-
+from purchase.purchase_apiview import PurchaseDetailApiView
 
 ## 자동으로 2개의 동작을 구현한 URL 을 만들어준다
 purchase_list = views.PurchaseViewSet.as_view({
@@ -20,6 +20,11 @@ purchase_detail = views.PurchaseViewSet.as_view({
 
 urlpatterns = [
     path('', views.api_root),
-    path('purchase/<int:pk>/', purchase_detail, name='purchase-detail'),
+    
+    
+    #path('purchase/<int:pk>/', purchase_detail, name='purchase-detail'),
     path('purchase-list/', purchase_list),
+    
+
+    path('purchase/<int:pk>/', PurchaseDetailApiView.as_view(), name='purchase-detail'),
 ]
