@@ -51,11 +51,6 @@ class PurchaseViewSet(viewsets.ModelViewSet):
     queryset = Purchase.objects.all()
     serializer_class = PurchaseSerializer
     
-    @action(detail=True, renderer_classes=[renderers.StaticHTMLRenderer])
-    def highlight(self, request, *args, **kwargs):
-        purchase = self.get_object()
-        return Response(purchase.highlighted)
-    
     def perform_create(self, serializer):
         serializer_class = PurchaseSerializer
         if serializer.is_valid():
