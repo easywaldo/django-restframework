@@ -3,7 +3,13 @@ from rest_framework import serializers
 
 from purchase.models import Purchase
 
-class   PurchaseSerializer(serializers.ModelSerializer):
+class PurchaseSerializer(serializers.ModelSerializer):
+    '''
+    from purchase.serializers import PurchaseSerializer
+    from purchase.models import Purchase
+    purchase_serializer = PurchaseSerializer(Purchase.objects.first())
+    purchase_serializer.data
+    '''
     class Meta:
         model = Purchase
         fields = '__all__'
