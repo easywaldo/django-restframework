@@ -28,16 +28,6 @@ from django.contrib.auth.models import User
 #         instance.style = validated_data.get('style', instance.style)
 #         instance.save()
 #         return instance
-
-class SnippetSerializer(serializers.HyperlinkedModelSerializer):
-    
-    owner = serializers.ReadOnlyField(source='owner.username')
-    highlighted = serializers.HyperlinkedIdentityField(view_name='snippet-highlight', format='html')
-    class Meta:
-        model = Snippet
-        fields = ['url', 'id', 'highlighted', 'owner',
-                  'title', 'code', 'linenos', 'language', 'style']
-        
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     #snippets = serializers.PrimaryKeyRelatedField(many=True, queryset=Snippet.objects.all())
     snippets = serializers.HyperlinkedRelatedField(many=True, view_name='snippet-detail', read_only=True)
@@ -45,3 +35,18 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
         fields = ['url', 'id', 'username', 'snippets']
+
+class SnippetSerializer(serializers.HyperlinkedModelSerializer):
+    
+    # 직접 필드설정하여 시리얼라이징
+    #owner = serializers.ReadOnlyField(source='owner.username')
+    
+    # 중첩 시리얼라이저 방식
+    owner = UserSerializer()
+    
+    highlighted = serializers.HyperlinkedIdentityField(view_name='snippet-highlight', format='html')
+    class Meta:
+        model = Snippet
+        fields = ['url', 'id', 'highlighted', 'owner',
+                  'title', 'code', 'linenos', 'language', 'style']
+        
