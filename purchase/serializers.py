@@ -24,6 +24,11 @@ class PurchaseSerializer(serializers.ModelSerializer):
     from rest_framework.renderers import JSONRenderer
     json_utf8_string = JSONRenderer().render(purchase_serializer.data)
     b'{"id":null,"purchase_user":"waldo","created":"None"}'
+
+    from rest_framework.response import Response
+    response = Response(purchase_serializer.data)
+    response.data
+    {'id': None, 'purchase_user': 'waldo', 'created': 'None'}
     '''
     class Meta:
         model = Purchase
