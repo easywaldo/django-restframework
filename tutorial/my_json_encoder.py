@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 
 class MyJsonEncoder(DjangoJSONEncoder):
     """
+    shell 에서의 사용방법
     from tutorial.my_json_encoder import MyJsonEncoder
     from django.contrib.auth.models import User
     import json
