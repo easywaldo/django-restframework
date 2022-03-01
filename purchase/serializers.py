@@ -12,6 +12,8 @@ class PurchaseSerializer(serializers.ModelSerializer):
 
     purchase_serializer = PurchaseSerializer(Purchase.objects.all(), many=True)
     purchase_serializer.data
+
+    purchase_serializer = PurchaseSerializer(Purchase(purchase_user='waldo', created='None'), many=False)
     '''
     class Meta:
         model = Purchase
