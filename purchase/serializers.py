@@ -9,6 +9,9 @@ class PurchaseSerializer(serializers.ModelSerializer):
     from purchase.models import Purchase
     purchase_serializer = PurchaseSerializer(Purchase.objects.first())
     purchase_serializer.data
+
+    purchase_serializer = PurchaseSerializer(Purchase.objects.all(), many=True)
+    purchase_serializer.data
     '''
     class Meta:
         model = Purchase
