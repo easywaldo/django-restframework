@@ -14,6 +14,16 @@ class PurchaseSerializer(serializers.ModelSerializer):
     purchase_serializer.data
 
     purchase_serializer = PurchaseSerializer(Purchase(purchase_user='waldo', created='None'), many=False)
+
+
+    파이선 기본 JSON 변환 사용
+    json_str_string = json.dumps(purchase_serializer.data, ensure_ascii=False)
+    '{"id": null, "purchase_user": "waldo", "created": "None"}'
+
+    DRF에서 지원하는 JSON 변환 사용 -> 변환 Rule이 추가된 Encoder
+    from rest_framework.renderers import JSONRenderer
+    json_utf8_string = JSONRenderer().render(purchase_serializer.data)
+    b'{"id":null,"purchase_user":"waldo","created":"None"}'
     '''
     class Meta:
         model = Purchase
