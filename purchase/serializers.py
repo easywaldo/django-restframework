@@ -35,5 +35,14 @@ class PurchaseSerializer(serializers.ModelSerializer):
         fields = '__all__'
     
     def validate(self, data):
+        print('validate')
+        print(data)
         if data['purchase_user'] == 'admin':
             raise serializers.ValidationError('운영자는 구매 등록 불가합니다.')
+        
+        return data
+        
+    def to_internal_value(self, data):
+        if data['purchase_user'] == 'admin':
+            raise serializers.ValidationError('운영자는 구매 등록 불가합니다.')
+        return data
