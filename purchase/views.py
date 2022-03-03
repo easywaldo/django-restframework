@@ -57,3 +57,8 @@ class PurchaseViewSet(viewsets.ModelViewSet):
             ##serializer.create(serializer.validated_data)  ## 저장 역할 수행
             print(serializer.validated_data)
             serializer.save()   ## 저장역할 수행
+            
+class PurchaseReadModelViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Purchase.objects.all()
+    serializer_class = PurchaseSerializer
+    

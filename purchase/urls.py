@@ -1,4 +1,4 @@
-from django.urls import path, re_path
+from django.urls import include, path, re_path
 from purchase import views
 from purchase.views import PurchaseList, PurchaseViewSet
 from purchase.purchase_apiview import PurchaseDetailApiView
@@ -19,6 +19,11 @@ purchase_detail = views.PurchaseViewSet.as_view({
     'delete': 'destroy'
 })
 
+from rest_framework.routers import DefaultRouter
+
+router = DefaultRouter()
+router.register('/purchase', views.PurchaseReadModelViewSet)
+
 urlpatterns = [
     path('', views.api_root),
     
@@ -28,4 +33,6 @@ urlpatterns = [
     
     #ApiView URL =============================================================
     path('purchase/<int:pk>/', PurchaseDetailApiView.as_view(), name='purchase-detail'),
+    
+    path('read', include(router.urls))    
 ]
