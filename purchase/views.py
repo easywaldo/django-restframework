@@ -62,3 +62,8 @@ class PurchaseReadModelViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Purchase.objects.all()
     serializer_class = PurchaseSerializer
     
+    @action(detail=False, methods=['GET'])
+    def superuser(self, request):
+        qs = self.get_queryset().filter(purchase_user="super_power")
+        serializer = self.get_serializer(qs, many=True)
+        return Response(serializer.data)    
