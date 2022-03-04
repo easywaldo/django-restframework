@@ -53,7 +53,8 @@ class PurchaseViewSet(viewsets.ModelViewSet):
     
     def perform_create(self, serializer):
         serializer_class = PurchaseSerializer
-        if serializer.is_valid():
+        if serializer.is_valid(raise_exception=True):
+            print('valid...')
             ##serializer.create(serializer.validated_data)  ## 저장 역할 수행
             print(serializer.validated_data)
             serializer.save()   ## 저장역할 수행
