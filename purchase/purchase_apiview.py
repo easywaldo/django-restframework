@@ -17,6 +17,9 @@ class PurchaseDetailApiView(APIView):
 
     def get(self, request, pk, format=None):
         print('apiview get execution.....')
+        user_agent = request.META.get("HTTP_USER_AGENT")
+        print(user_agent)
+        
         Purchase = self.get_object(pk)
         serializer = PurchaseSerializer(Purchase)
         return Response(serializer.data)
