@@ -1,3 +1,4 @@
+from django.forms import ValidationError
 from rest_framework import serializers
 from snippets.models import Snippet, LANGUAGE_CHOICES, STYLE_CHOICES
 from django.contrib.auth.models import User
@@ -49,4 +50,11 @@ class SnippetSerializer(serializers.HyperlinkedModelSerializer):
         model = Snippet
         fields = ['url', 'id', 'highlighted', 'owner',
                   'title', 'code', 'linenos', 'language', 'style']
+        
+    def validate(self, data):
+        if data.get('code') in ['basic', 'cobol']:
+            #raise serializers.ValidationError('해당 코드는 등록 불가합니다.')
+            raise ValidationError('해당 코드는 등록 불가합니다.')
+        
+        return data
         

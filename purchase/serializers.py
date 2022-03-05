@@ -1,4 +1,5 @@
 from attr import fields
+from django.forms import ValidationError
 from rest_framework import serializers
 
 from purchase.models import Purchase
@@ -35,14 +36,27 @@ class PurchaseSerializer(serializers.ModelSerializer):
         fields = '__all__'
     
     def validate(self, data):
+        """
+        object level validation
+        """
         print('validate')
         print(data)
-        if data['purchase_user'] == 'admin':
-            raise serializers.ValidationError('운영자는 구매 등록 불가합니다.')
+        if data.get('purchase_user') in ['admin', 'big boss']:
+            raise ValidationError('운영자는 구매 등록 불가합니다.')
         
         return data
+    
+    # def validate_purchase_user(self, value):
+    #     """
+    #     field level validation
+    #     필드 레벨 수준과 오브젝트 수준은 함께 사용하지 못한다
+    #     """
+    #     if 'big boss' in value:
+    #         raise ValidationError('운영자는 구매 등록 불가합니다')
+    #     return value
         
-    def to_internal_value(self, data):
-        if data['purchase_user'] == 'admin':
-            raise serializers.ValidationError('운영자는 구매 등록 불가합니다.')
-        return data
+    # def to_internal_value(self, data):
+    #     if data['purchase_user'] == 'admin':
+    #         print('validation error')
+    #         raise serializers.ValidationError('운영자는 구매 등록 불가합니다.')
+    #     return data
