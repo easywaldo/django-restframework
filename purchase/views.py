@@ -7,6 +7,7 @@ from rest_framework.views import APIView
 from rest_framework.generics import CreateAPIView
 from rest_framework import viewsets
 from rest_framework.decorators import action
+from rest_framework import permissions
 
 # Create your views here.
 
@@ -62,6 +63,7 @@ class PurchaseViewSet(viewsets.ModelViewSet):
 class PurchaseReadModelViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Purchase.objects.all()
     serializer_class = PurchaseSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     
     @action(detail=False, methods=['GET'])
     def superuser(self, request):
