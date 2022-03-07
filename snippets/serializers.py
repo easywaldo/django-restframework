@@ -58,3 +58,6 @@ class SnippetSerializer(serializers.HyperlinkedModelSerializer):
         
         return data
         
+class CustomSnippetSerializer(serializers.Serializer):
+    class Meta:
+        fields = ['title', 'code', 'style', 'owner']

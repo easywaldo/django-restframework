@@ -54,9 +54,11 @@ user_detail = views.UserViewSet.as_view({
     'get': 'retrieve'
 })
 
+
 urlpatterns = format_suffix_patterns([
     path('', views.api_root),
     path('snippets/', snippet_list, name='snippet-list'),
+    path('snippets-custom-list/<str:style_code>/', views.custom_list),
     #path('snippets/<int:pk>/', snippet_detail, name='snippet-detail'),
     path('snippets/<int:pk>/', views.SnippetDetail.as_view(), name='snippet-detail'),
     path('snippets/<int:pk>/highlight/', views.SnippetHighlight.as_view(), name='snippet-highlight'),

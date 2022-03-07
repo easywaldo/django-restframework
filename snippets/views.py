@@ -7,7 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from snippets.models import Snippet
 from snippets.permissions import IsOwnerOrReadOnly
-from snippets.serializers import SnippetSerializer
+from snippets.serializers import CustomSnippetSerializer, SnippetSerializer
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -28,6 +28,8 @@ from rest_framework import renderers
 
 from rest_framework import viewsets
 from rest_framework.decorators import action
+
+from pygments.styles import STYLE_MAP
 
 # Create your views here.
 # @csrf_exempt
@@ -225,3 +227,10 @@ class SnippetViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
+        
+@api_view(['GET'])
+def custom_list(request, style_code:str):
+    print(style_code)
+    qs = Snippet.objects.all().filter(title=style_code).values_list()
+    print(qs)
+    return Response(list(qs))
