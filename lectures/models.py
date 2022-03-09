@@ -12,7 +12,7 @@ class Professor(models.Model):
 class Lecture(models.Model):
     sno = models.IntegerField(auto_created=True, primary_key=True)
     lecture_name = models.CharField(max_length=100)
-    professor_sno = models.ForeignKey(Professor, on_delete=models.PROTECT)
+    professor = models.ForeignKey(Professor, on_delete=models.PROTECT)
     created_dt = models.DateTimeField(auto_now_add=True)
     
     class Meta:

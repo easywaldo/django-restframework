@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'snippets',
     'purchase',
-    'lecture',
+    'lectures',
     'drf_yasg',
 ]
 
