@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'snippets',
     'purchase',
     'lectures',
+    'bookstore',
     'drf_yasg',
 ]
 
