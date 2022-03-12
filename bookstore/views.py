@@ -8,8 +8,11 @@ from bookstore.models import Author, Book
 from bookstore.serializers import AuthroSerializer
 
 # Create your views here.
-@api_view(['GET'])
+@api_view(['GET', 'POST'])
 def get_book_sample(request):
+    print(request.data)
+    serializer = AuthroSerializer(data=request.data)
+    print(serializer.is_valid())
     return Response({"message": "Hello, world!!!"})
 
 class AuthorViewSet(viewsets.ModelViewSet):
