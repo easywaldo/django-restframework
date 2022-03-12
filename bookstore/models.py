@@ -5,8 +5,7 @@ from django.db import models
 class Author(models.Model):
     seq = models.AutoField(primary_key=True)
     author_name = models.CharField(max_length=100)
-    gender = models.BooleanField
-    description = models.TextField
+    description = models.TextField(default=None)
     
     class Meta:
         db_table = 'author'
