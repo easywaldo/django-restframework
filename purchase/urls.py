@@ -25,7 +25,7 @@ router = DefaultRouter()
 router.register('/purchase', views.PurchaseReadModelViewSet)
 
 urlpatterns = [
-    path('', views.api_root),
+    path('purchase', views.api_root),
     
     #ViewSet URL =============================================================
     #path('purchase/<int:pk>/', purchase_detail, name='purchase-detail'),
