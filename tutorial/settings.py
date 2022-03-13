@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'lectures',
     'bookstore',
     'drf_yasg',
+    'django_extensions'
 ]
 
 MIDDLEWARE = [
